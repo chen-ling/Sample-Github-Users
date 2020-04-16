@@ -1,6 +1,7 @@
 package ccl.exercise.githubusers
 
 import android.app.Application
+import androidx.annotation.VisibleForTesting
 import ccl.exercise.githubusers.service.GithubApi
 import ccl.exercise.githubusers.service.GithubService
 import ccl.exercise.githubusers.service.GithubServiceImpl
@@ -22,11 +23,12 @@ object KoinModules {
     fun initKoin(app: Application) {
         startKoin {
             androidContext(app)
-            appModules
+            modules(appModules)
         }
     }
 
-    private val appModules = module {
+    @VisibleForTesting
+    val appModules = module {
         single {
             OkHttpClient.Builder().apply {
                 connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
@@ -44,8 +46,8 @@ object KoinModules {
                     loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
                     addInterceptor(loggingInterceptor)
                 }
-                build()
-            }
+
+            }.build()
         }
 
         single<Retrofit> {
@@ -61,6 +63,4 @@ object KoinModules {
 
         single<GithubService> { GithubServiceImpl(get()) }
     }
-
-
 }

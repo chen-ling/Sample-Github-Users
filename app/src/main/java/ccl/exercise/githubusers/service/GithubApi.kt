@@ -15,7 +15,7 @@ interface GithubApi {
     @GET("/users")
     fun getUsers(
         @Query("per_page") pageSize: Int = PAGE_SIZE,
-        @Query("since") since: Long? = null
+        @Query("since") since: Int = 0
     ): Deferred<List<User>>
 
     @GET("/users/{username}")

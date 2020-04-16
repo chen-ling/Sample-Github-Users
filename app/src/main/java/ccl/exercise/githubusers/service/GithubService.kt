@@ -4,6 +4,6 @@ import ccl.exercise.githubusers.model.User
 import kotlinx.coroutines.Deferred
 
 interface GithubService {
-    fun getUsersAsync(since: Long?): Deferred<List<User>>
+    fun getUsersAsync(since: Int = 0): Deferred<List<User>>
     fun getUserDetailAsync(username: String): Deferred<User>
 }
