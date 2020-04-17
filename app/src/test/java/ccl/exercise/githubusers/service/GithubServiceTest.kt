@@ -3,6 +3,7 @@ package ccl.exercise.githubusers.service
 import ccl.exercise.githubusers.KoinModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.koin.core.KoinComponent
@@ -10,6 +11,7 @@ import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
 
+@Ignore
 /** Check if apis are available */
 class GithubServiceTest : KoinTest, KoinComponent {
     @get:Rule
