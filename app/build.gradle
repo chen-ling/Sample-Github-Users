@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -13,6 +12,9 @@ android {
     }
     kotlinOptions{
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    dataBinding {
+        enabled = true
     }
     defaultConfig {
         applicationId "ccl.exercise.githubusers"
