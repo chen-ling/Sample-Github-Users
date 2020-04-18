@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GithubUsers</string>
     <string name="staff">Staff</string>
+    <string name="something_went_wrong">Something went wrong! Please try again later!</string>
 </resources>

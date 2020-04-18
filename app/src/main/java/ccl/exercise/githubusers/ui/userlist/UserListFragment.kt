@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ccl.exercise.githubusers.R
 import ccl.exercise.githubusers.ui.userdetail.UserDetailFragment.Companion.STRING_NAME
 import ccl.exercise.githubusers.ui.userlist.UserListViewModel.Companion.LOAD_MORE_THRESHOLD
-import kotlinx.android.synthetic.main.user_list_fragment.*
+import kotlinx.android.synthetic.main.fragment_user_list.*
 import org.koin.android.ext.android.inject
 
 class UserListFragment : Fragment() {
@@ -33,7 +33,7 @@ class UserListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.user_list_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_user_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,19 +43,23 @@ class UserListFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        viewModel.usersLiveData.observe(viewLifecycleOwner, Observer {
-            if (it.isEmpty()) return@Observer
-            userListAdapter?.updateUsers(it)
-            userListAdapter?.notifyDataSetChanged()
-        })
-        viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-        })
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            userListAdapter?.updateLoadingStatus(it)
-            userListAdapter?.notifyDataSetChanged()
-        })
-        viewModel.fetchUsers()
+        with(viewModel) {
+            usersLiveData.observe(viewLifecycleOwner, Observer {
+                if (it.isEmpty()) return@Observer
+                userListAdapter?.updateUsers(it)
+                userListAdapter?.notifyDataSetChanged()
+            })
+            error.observe(viewLifecycleOwner, Observer {
+                Toast.makeText(context, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+                userListAdapter?.updateLoadingStatus(false)
+                userListAdapter?.notifyItemRemoved(userListAdapter!!.itemCount-1)
+            })
+            isLoading.observe(viewLifecycleOwner, Observer {
+                userListAdapter?.updateLoadingStatus(it)
+                userListAdapter?.notifyDataSetChanged()
+            })
+            fetchUsers()
+        }
     }
 
     private fun initRecyclerView() {

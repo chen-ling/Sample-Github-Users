@@ -8,13 +8,15 @@ data class User(
     @SerializedName("avatar_url")
     val avatarUrl: String?,
     @SerializedName("login")
-    val name: String,
+    val loginName: String,
+    @SerializedName("name")
+    val userName: String,
     @SerializedName("bio")
     val bio: String,
     @SerializedName("site_admin")
     val isAdmin: Boolean,
     @SerializedName("location")
-    val location: String,
+    val location: String?,
     @SerializedName("blog")
     val blog: String
 )

@@ -5,6 +5,7 @@ import androidx.annotation.VisibleForTesting
 import ccl.exercise.githubusers.service.GithubApi
 import ccl.exercise.githubusers.service.GithubService
 import ccl.exercise.githubusers.service.GithubServiceImpl
+import ccl.exercise.githubusers.ui.userdetail.UserDetailViewModel
 import ccl.exercise.githubusers.ui.userlist.UserListViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -64,5 +65,6 @@ object KoinModules {
         single<GithubService> { GithubServiceImpl(get()) }
 
         viewModel { UserListViewModel() }
+        viewModel { (name: String) -> UserDetailViewModel(name) }
     }
 }

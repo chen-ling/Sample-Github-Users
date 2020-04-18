@@ -9,7 +9,7 @@
         android:id="@+id/userListFragment"
         android:name="ccl.exercise.githubusers.ui.userlist.UserListFragment"
         android:label="user_list_fragment"
-        tools:layout="@layout/user_list_fragment">
+        tools:layout="@layout/fragment_user_list">
         <action
             android:id="@+id/action_userListFragment_to_userDetailFragment"
             app:destination="@id/userDetailFragment" />
@@ -18,5 +18,5 @@
         android:id="@+id/userDetailFragment"
         android:name="ccl.exercise.githubusers.ui.userdetail.UserDetailFragment"
         android:label="user_detail_fragment"
-        tools:layout="@layout/user_detail_fragment" />
+        tools:layout="@layout/fragment_user_detail" />
 </navigation>

@@ -16,5 +16,13 @@
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
     </style>
+    <style name="DetailText" parent="RegularText">
+        <item name="android:layout_marginStart">@dimen/dp_10</item>
+    </style>
+
+    <style name="DetailIcon">
+        <item name="android:layout_marginTop">@dimen/dp_20</item>
+        <item name="android:tint">@color/gray</item>
+    </style>
 
 </resources>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="userDetailViewModel"
+            type="ccl.exercise.githubusers.ui.userdetail.UserDetailViewModel" />
+
+        <variable
+            name="userDetailEventDelegate"
+            type="ccl.exercise.githubusers.ui.userdetail.UserDetailEventDelegate" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.userdetail.UserDetailFragment">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="@{() -> userDetailEventDelegate.onClose()}"
+                android:padding="@dimen/dp_12"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:tint="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/avatarImage"
+                circleImage="@{userDetailViewModel.user.avatarUrl}"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="70dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
+                tools:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/userNameText"
+                style="@style/SingleLineRegularText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@{userDetailViewModel.user.userName}"
+                android:textSize="@dimen/sp_20"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/avatarImage"
+                tools:text="Chris Wanstrath" />
+
+            <TextView
+                android:id="@+id/bioText"
+                style="@style/RegularText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:gravity="center"
+                android:text="@{userDetailViewModel.user.bio}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userNameText"
+                app:visibleOnTextNotEmpty="@{userDetailViewModel.user.bio}"
+                tools:text="biobiobiobiobiobiobiobiobiobiobiobiobiobiobiobio" />
+
+            <View
+                android:id="@+id/dividerView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_12"
+                android:background="@color/gray"
+                app:layout_constraintTop_toBottomOf="@id/bioText" />
+
+            <ImageView
+                android:id="@+id/userImage"
+                style="@style/DetailText"
+                android:layout_width="@dimen/detail_icon_size"
+                android:layout_height="@dimen/detail_icon_size"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_20"
+                android:src="@drawable/ic_user"
+                android:tint="@color/gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dividerView"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/loginText"
+                style="@style/DetailText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{userDetailViewModel.user.loginName}"
+                app:layout_constraintBottom_toTopOf="@id/tagLayout"
+                app:layout_constraintEnd_toEndOf="@id/dividerView"
+                app:layout_constraintStart_toEndOf="@id/userImage"
+                app:layout_constraintTop_toTopOf="@id/userImage"
+                tools:text="defunkt" />
+
+            <FrameLayout
+                android:id="@+id/tagLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                app:layout_constraintBottom_toBottomOf="@id/userImage"
+                app:layout_constraintEnd_toEndOf="@id/dividerView"
+                app:layout_constraintStart_toEndOf="@id/userImage"
+                app:layout_constraintTop_toBottomOf="@+id/loginText"
+                app:visibleOnTrue="@{userDetailViewModel.user.admin}"
+                tools:visibility="visible">
+
+                <TextView
+                    style="@style/SingleLineRegularText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_rounded_tag"
+                    android:paddingStart="@dimen/dp_8"
+                    android:paddingEnd="@dimen/dp_8"
+                    android:text="@string/staff"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    tools:text="STAFFSTAFFSTAFFSTAFFSTAFFSTAFFSTAFFSTAFFSTAFF" />
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.Group
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="locationImage,locationText"
+                app:visibleOnTextNotEmpty="@{userDetailViewModel.user.location}" />
+
+            <ImageView
+                android:id="@+id/locationImage"
+                style="@style/DetailIcon"
+                android:layout_width="@dimen/detail_icon_size"
+                android:layout_height="@dimen/detail_icon_size"
+                android:src="@drawable/ic_locator"
+                app:layout_constraintStart_toStartOf="@id/userImage"
+                app:layout_constraintTop_toBottomOf="@id/userImage"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/locationText"
+                style="@style/DetailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:text="@{userDetailViewModel.user.location}"
+                app:layout_constraintBottom_toBottomOf="@id/locationImage"
+                app:layout_constraintStart_toEndOf="@id/locationImage"
+                app:layout_constraintTop_toTopOf="@id/locationImage"
+                tools:text="San Francisco" />
+
+            <androidx.constraintlayout.widget.Group
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="linkImage,blogText"
+                app:visibleOnTextNotEmpty="@{userDetailViewModel.user.blog}" />
+
+            <ImageView
+                android:id="@+id/linkImage"
+                style="@style/DetailIcon"
+                android:layout_width="@dimen/detail_icon_size"
+                android:layout_height="@dimen/detail_icon_size"
+                android:src="@drawable/ic_link"
+                app:layout_constraintStart_toStartOf="@id/userImage"
+                app:layout_constraintTop_toBottomOf="@id/locationImage"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/blogText"
+                style="@style/DetailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:text="@{userDetailViewModel.user.blog}"
+                app:layout_constraintBottom_toBottomOf="@id/linkImage"
+                app:layout_constraintStart_toEndOf="@id/linkImage"
+                app:layout_constraintTop_toTopOf="@id/linkImage"
+                tools:text="http://chriswanstrath.com" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loadingAnimationView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:animationOnTrue="@{userDetailViewModel.isLoading}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_fileName="loading.json" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

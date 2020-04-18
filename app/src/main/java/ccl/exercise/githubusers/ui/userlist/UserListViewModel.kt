@@ -8,6 +8,8 @@ import ccl.exercise.githubusers.model.User
 import ccl.exercise.githubusers.service.GithubService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -29,12 +31,14 @@ class UserListViewModel : ViewModel(), KoinComponent {
     val usersLiveData: LiveData<MutableList<User>>
         get() = _usersLiveData
 
-    private val _errorMessage: MutableLiveData<String?> = MutableLiveData()
-    val errorMessage: LiveData<String?>
-        get() = _errorMessage
+    private val _error: MutableLiveData<Exception> = MutableLiveData()
+    val error: LiveData<Exception>
+        get() = _error
+
+    private var job: Job? = null
 
     fun fetchUsers() {
-        CoroutineScope(IO).launch {
+        job = CoroutineScope(IO).launch {
             _isLoading.postValue(true)
             try {
                 val maxId = _usersLiveData.value?.maxBy(User::id)?.id ?: 0
@@ -42,6 +46,8 @@ class UserListViewModel : ViewModel(), KoinComponent {
                 _usersLiveData.postValue(userList)
             } catch (e: Exception) {
                 handlerError(e)
+                /** Reached api request limit, set 5 seconds delay to avoid repeated quick fail*/
+                delay(5000L)
             } finally {
                 _isLoading.postValue(false)
             }
@@ -50,7 +56,11 @@ class UserListViewModel : ViewModel(), KoinComponent {
 
     private fun handlerError(e: Exception) {
         Log.e(TAG, "error: ${e.message}")
-        _errorMessage.postValue("Something went wrong!")
+        _error.postValue(e)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        job?.cancel()
+    }
 }

@@ -8,7 +8,6 @@
         <variable
             name="user"
             type="ccl.exercise.githubusers.model.User" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,15 +26,16 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            circleImage="@{user.avatarUrl}"
             tools:src="@mipmap/ic_launcher_round" />
 
         <TextView
-            android:id="@+id/nameText"
+            android:id="@+id/userNameText"
             style="@style/SingleLineRegularText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_10"
-            android:text="@{user.name}"
+            android:text="@{user.loginName}"
             app:layout_constraintBottom_toTopOf="@+id/tagLayout"
             app:layout_constraintLeft_toRightOf="@id/avatarImage"
             app:layout_constraintRight_toRightOf="parent"
@@ -50,7 +50,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/avatarImage"
-            app:layout_constraintTop_toBottomOf="@+id/nameText"
+            app:layout_constraintTop_toBottomOf="@+id/userNameText"
             app:visibleOnTrue="@{user.admin}"
             tools:visibility="visible">
 
