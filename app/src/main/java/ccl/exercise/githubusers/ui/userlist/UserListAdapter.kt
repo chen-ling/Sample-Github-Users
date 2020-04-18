@@ -8,7 +8,8 @@ import ccl.exercise.githubusers.ui.base.BaseRecyclerViewAdapter
 import ccl.exercise.githubusers.ui.base.BaseViewHolder
 
 
-class UserListAdapter : BaseRecyclerViewAdapter<User>() {
+class UserListAdapter(private val userEventDelegate: UserEventDelegate) :
+    BaseRecyclerViewAdapter<User>() {
     companion object {
         const val ITEM_USER = 0
         const val ITEM_LOADING = 1
@@ -26,10 +27,13 @@ class UserListAdapter : BaseRecyclerViewAdapter<User>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return when (viewType) {
             ITEM_USER -> {
-                val layoutInflater = LayoutInflater.from(parent.context)
                 val binding: ViewHolderUserBinding =
-                    ViewHolderUserBinding.inflate(layoutInflater, parent, false)
-                UserViewHolder(binding)
+                    ViewHolderUserBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                UserViewHolder(binding, userEventDelegate)
             }
             else -> LoadingViewHolder(parent)
         }
@@ -44,11 +48,9 @@ class UserListAdapter : BaseRecyclerViewAdapter<User>() {
     }
 
     fun updateUsers(users: List<User>) {
-        users.let {
-            when {
-                items.isEmpty() -> setItems(it)
-                else -> appendItems(it.subList(items.size, it.size))
-            }
+        when {
+            items.isEmpty() -> setItems(users)
+            else -> appendItems(users.subList(items.size, users.size))
         }
     }
 
