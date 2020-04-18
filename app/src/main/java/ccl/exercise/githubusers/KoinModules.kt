@@ -5,10 +5,11 @@ import androidx.annotation.VisibleForTesting
 import ccl.exercise.githubusers.service.GithubApi
 import ccl.exercise.githubusers.service.GithubService
 import ccl.exercise.githubusers.service.GithubServiceImpl
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import ccl.exercise.githubusers.ui.userlist.UserListViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -55,12 +56,13 @@ object KoinModules {
                 .client(get())
                 .baseUrl(GithubApi.API_ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .build()
         }
 
         single<GithubApi> { get<Retrofit>().create(GithubApi::class.java) }
 
         single<GithubService> { GithubServiceImpl(get()) }
+
+        viewModel { UserListViewModel() }
     }
 }

@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserListFragment">
+    tools:context=".ui.userlist.UserListFragment">
 
-    <TextView
-        android:id="@+id/navToUserDetailText"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/usersRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="UserListFragment" />
+        tools:listitem="@layout/view_holder_user" />
 
 </FrameLayout>

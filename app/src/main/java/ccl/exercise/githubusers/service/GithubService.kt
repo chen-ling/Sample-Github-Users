@@ -1,9 +1,9 @@
 package ccl.exercise.githubusers.service
 
 import ccl.exercise.githubusers.model.User
-import kotlinx.coroutines.Deferred
+import ccl.exercise.githubusers.service.GithubApi.Companion.PAGE_SIZE
 
 interface GithubService {
-    fun getUsersAsync(since: Int = 0): Deferred<List<User>>
-    fun getUserDetailAsync(username: String): Deferred<User>
+    suspend fun getUsersAsync(pageSize: Int = PAGE_SIZE, since: Int = 0): List<User>
+    suspend fun getUserDetailAsync(username: String): User
 }

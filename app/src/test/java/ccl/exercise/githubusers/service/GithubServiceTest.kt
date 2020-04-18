@@ -1,6 +1,7 @@
 package ccl.exercise.githubusers.service
 
 import ccl.exercise.githubusers.KoinModules
+import ccl.exercise.githubusers.model.User
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Ignore
@@ -22,20 +23,21 @@ class GithubServiceTest : KoinTest, KoinComponent {
 
     @Test
     fun `get 50 users`() = runBlocking {
-        val users = githubService.getUsersAsync().await()
+        val users = githubService.getUsersAsync(50)
         Assert.assertEquals(50, users.size)
     }
 
     @Test
     fun `get 100 users`() = runBlocking {
-        val firstFetchedUsers = githubService.getUsersAsync().await()
-        val secondFetchedUsers =
-            githubService.getUsersAsync(firstFetchedUsers.size).await()
-        Assert.assertEquals(100, firstFetchedUsers.size + secondFetchedUsers.size)
+        val userSet = mutableSetOf<User>()
+        userSet.addAll(githubService.getUsersAsync(50))
+        val maxId = userSet.maxBy(User::id)!!.id
+        userSet.addAll(githubService.getUsersAsync(50, since = maxId))
+        Assert.assertEquals(100, userSet.size)
     }
 
     @Test
     fun `get user detail`() = runBlocking {
-        githubService.getUserDetailAsync("chen-ling").await().let(::print)
+        githubService.getUserDetailAsync("chen-ling").let(::print)
     }
 }
