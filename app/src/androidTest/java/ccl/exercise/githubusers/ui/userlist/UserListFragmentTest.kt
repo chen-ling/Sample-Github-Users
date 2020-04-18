@@ -6,8 +6,9 @@ import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import ccl.exercise.githubusers.R
 import org.hamcrest.CoreMatchers.equalTo
@@ -16,6 +17,9 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class UserListFragmentTest {
+    companion object {
+        private const val THREE_SECONDS = 3000L
+    }
 
     @Test
     fun testNavigationToUserDetail() {
@@ -29,7 +33,14 @@ class UserListFragmentTest {
                 Navigation.setViewNavController(fragment.requireView(), navController)
             }
         }
-        onView(ViewMatchers.withId(R.id.navToUserDetailText)).perform(ViewActions.click())
+//        FIXME a workaround for waiting recyclerView updated
+        Thread.sleep(THREE_SECONDS)
+        onView(withId(R.id.usersRecyclerView)).perform(
+            actionOnItemAtPosition<UserViewHolder>(
+                0,
+                ViewActions.click()
+            )
+        )
         assertThat(navController.currentDestination?.id, equalTo(R.id.userDetailFragment))
     }
 
