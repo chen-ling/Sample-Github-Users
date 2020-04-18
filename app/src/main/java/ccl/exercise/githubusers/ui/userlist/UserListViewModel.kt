@@ -34,9 +34,7 @@ class UserListViewModel : ViewModel(), KoinComponent {
     val usersLiveData: LiveData<MutableList<User>>
         get() = _usersLiveData
 
-    private val _error: MutableLiveData<Exception> = MutableLiveData()
-    val error: LiveData<Exception>
-        get() = _error
+    val error: MutableLiveData<Exception?> = MutableLiveData()
 
     @VisibleForTesting
     var job: Job? = null
@@ -61,11 +59,11 @@ class UserListViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    private fun reachFetchLimit(): Boolean = MAX_FETCHED_COUNT <= userList.size
+    fun reachFetchLimit(): Boolean = MAX_FETCHED_COUNT <= userList.size
 
     private fun handlerError(e: Exception) {
         Log.e(TAG, "error: ${e.message}")
-        _error.postValue(e)
+        error.postValue(e)
     }
 
     override fun onCleared() {

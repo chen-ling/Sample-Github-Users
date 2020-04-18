@@ -51,6 +51,7 @@ class UserListFragment : Fragment() {
                 userListAdapter?.notifyDataSetChanged()
             })
             error.observe(viewLifecycleOwner, Observer {
+                it ?: return@Observer
                 Toast.makeText(
                     context,
                     getString(if (it is UnsupportedOperationException) R.string.reached_limit else R.string.something_went_wrong),
@@ -58,6 +59,7 @@ class UserListFragment : Fragment() {
                 ).show()
                 userListAdapter?.updateLoadingStatus(false)
                 userListAdapter?.notifyItemRemoved(userListAdapter!!.itemCount - 1)
+                error.value = null
             })
             isLoading.observe(viewLifecycleOwner, Observer {
                 userListAdapter?.updateLoadingStatus(it)
@@ -73,7 +75,7 @@ class UserListFragment : Fragment() {
             val linearLayoutManager = LinearLayoutManager(context)
             val scrollListener = object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    if (viewModel.isLoading.value == true) {
+                    if (viewModel.isLoading.value == true || viewModel.reachFetchLimit()) {
                         return
                     }
                     val itemNotViewed =
