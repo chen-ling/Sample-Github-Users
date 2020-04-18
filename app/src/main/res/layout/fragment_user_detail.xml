@@ -101,9 +101,10 @@
 
             <TextView
                 android:id="@+id/loginText"
-                style="@style/DetailText"
+                style="@style/RegularText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
                 android:text="@{userDetailViewModel.user.loginName}"
                 app:layout_constraintBottom_toTopOf="@id/tagLayout"
                 app:layout_constraintEnd_toEndOf="@id/dividerView"
@@ -115,10 +116,9 @@
                 android:id="@+id/tagLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_10"
                 app:layout_constraintBottom_toBottomOf="@id/userImage"
                 app:layout_constraintEnd_toEndOf="@id/dividerView"
-                app:layout_constraintStart_toEndOf="@id/userImage"
+                app:layout_constraintStart_toStartOf="@id/loginText"
                 app:layout_constraintTop_toBottomOf="@+id/loginText"
                 app:visibleOnTrue="@{userDetailViewModel.user.admin}"
                 tools:visibility="visible">
@@ -154,13 +154,13 @@
 
             <TextView
                 android:id="@+id/locationText"
-                style="@style/DetailText"
-                android:layout_width="wrap_content"
+                style="@style/RegularText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_10"
                 android:text="@{userDetailViewModel.user.location}"
                 app:layout_constraintBottom_toBottomOf="@id/locationImage"
-                app:layout_constraintStart_toEndOf="@id/locationImage"
+                app:layout_constraintEnd_toEndOf="@id/dividerView"
+                app:layout_constraintStart_toStartOf="@id/loginText"
                 app:layout_constraintTop_toTopOf="@id/locationImage"
                 tools:text="San Francisco" />
 
@@ -182,13 +182,14 @@
 
             <TextView
                 android:id="@+id/blogText"
-                style="@style/DetailText"
-                android:layout_width="wrap_content"
+                style="@style/RegularText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
                 android:text="@{userDetailViewModel.user.blog}"
                 app:layout_constraintBottom_toBottomOf="@id/linkImage"
-                app:layout_constraintStart_toEndOf="@id/linkImage"
+                app:layout_constraintEnd_toEndOf="@id/dividerView"
+                app:layout_constraintStart_toStartOf="@id/loginText"
                 app:layout_constraintTop_toTopOf="@id/linkImage"
                 tools:text="http://chriswanstrath.com" />
 
