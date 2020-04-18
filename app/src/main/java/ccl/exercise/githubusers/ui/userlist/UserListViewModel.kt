@@ -1,6 +1,7 @@
 package ccl.exercise.githubusers.ui.userlist
 
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,7 +38,8 @@ class UserListViewModel : ViewModel(), KoinComponent {
     val error: LiveData<Exception>
         get() = _error
 
-    private var job: Job? = null
+    @VisibleForTesting
+    var job: Job? = null
 
     fun fetchUsers() {
         job = CoroutineScope(IO).launch {
@@ -67,7 +69,6 @@ class UserListViewModel : ViewModel(), KoinComponent {
     }
 
     override fun onCleared() {
-        super.onCleared()
         job?.cancel()
     }
 }

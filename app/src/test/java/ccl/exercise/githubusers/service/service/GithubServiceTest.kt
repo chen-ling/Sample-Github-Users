@@ -8,14 +8,13 @@ import org.junit.Assert
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
-import org.koin.core.KoinComponent
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
 
 @Ignore
 /** Check if apis are available */
-class GithubServiceTest : KoinTest, KoinComponent {
+class GithubServiceTest : KoinTest{
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         modules(KoinModules.appModules)
