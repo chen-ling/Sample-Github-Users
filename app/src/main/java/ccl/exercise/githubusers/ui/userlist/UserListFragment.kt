@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ccl.exercise.githubusers.R
+import ccl.exercise.githubusers.ui.ItemSpacingDecoration
 import ccl.exercise.githubusers.ui.userdetail.UserDetailFragment.Companion.STRING_NAME
 import ccl.exercise.githubusers.ui.userlist.UserListViewModel.Companion.LOAD_MORE_THRESHOLD
 import kotlinx.android.synthetic.main.fragment_user_list.*
@@ -50,9 +51,13 @@ class UserListFragment : Fragment() {
                 userListAdapter?.notifyDataSetChanged()
             })
             error.observe(viewLifecycleOwner, Observer {
-                Toast.makeText(context, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    getString(R.string.something_went_wrong),
+                    Toast.LENGTH_SHORT
+                ).show()
                 userListAdapter?.updateLoadingStatus(false)
-                userListAdapter?.notifyItemRemoved(userListAdapter!!.itemCount-1)
+                userListAdapter?.notifyItemRemoved(userListAdapter!!.itemCount - 1)
             })
             isLoading.observe(viewLifecycleOwner, Observer {
                 userListAdapter?.updateLoadingStatus(it)
@@ -82,6 +87,7 @@ class UserListFragment : Fragment() {
             layoutManager = linearLayoutManager
             setHasFixedSize(true)
             addOnScrollListener(scrollListener)
+            addItemDecoration(ItemSpacingDecoration(R.dimen.dp_10, R.dimen.dp_5))
         }
     }
 }

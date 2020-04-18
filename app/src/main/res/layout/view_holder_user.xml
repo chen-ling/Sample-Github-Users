@@ -10,61 +10,70 @@
             type="ccl.exercise.githubusers.model.User" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_10"
-        android:layout_marginBottom="@dimen/dp_10">
+        android:layout_marginStart="@dimen/dp_5"
+        android:layout_marginEnd="@dimen/dp_5"
+        app:cardCornerRadius="@dimen/dp_5"
+        app:cardElevation="@dimen/dp_5">
 
-        <ImageView
-            android:id="@+id/avatarImage"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            circleImage="@{user.avatarUrl}"
-            tools:src="@mipmap/ic_launcher_round" />
-
-        <TextView
-            android:id="@+id/userNameText"
-            style="@style/SingleLineRegularText"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_10"
-            android:text="@{user.loginName}"
-            app:layout_constraintBottom_toTopOf="@+id/tagLayout"
-            app:layout_constraintLeft_toRightOf="@id/avatarImage"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="mojombomojombomojombomojombomojombomoj" />
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10">
 
-        <FrameLayout
-            android:id="@+id/tagLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_10"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/avatarImage"
-            app:layout_constraintTop_toBottomOf="@+id/userNameText"
-            app:visibleOnTrue="@{user.admin}"
-            tools:visibility="visible">
+            <ImageView
+                android:id="@+id/avatarImage"
+                circleImage="@{user.avatarUrl}"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@mipmap/ic_launcher_round" />
 
             <TextView
+                android:id="@+id/userNameText"
                 style="@style/SingleLineRegularText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_rounded_tag"
-                android:paddingStart="@dimen/dp_8"
-                android:paddingEnd="@dimen/dp_8"
-                android:text="@string/staff"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                tools:text="STAFFSTAFFSTAFFSTAFFSTAFFSTAFFSTAFFSTAFFSTAFF" />
-        </FrameLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginStart="@dimen/dp_10"
+                android:text="@{user.loginName}"
+                app:layout_constraintBottom_toTopOf="@+id/tagLayout"
+                app:layout_constraintLeft_toRightOf="@id/avatarImage"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="mojombomojombomojombomojombomojombomoj" />
+
+            <FrameLayout
+                android:id="@+id/tagLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/avatarImage"
+                app:layout_constraintTop_toBottomOf="@+id/userNameText"
+                app:visibleOnTrue="@{user.admin}"
+                tools:visibility="visible">
+
+                <TextView
+                    style="@style/SingleLineRegularText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_rounded_tag"
+                    android:paddingStart="@dimen/dp_8"
+                    android:paddingEnd="@dimen/dp_8"
+                    android:text="@string/staff"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    tools:text="STAFFSTAFFSTAFFSTAFFSTAFFSTAFFSTAFFSTAFFSTAFF" />
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>
