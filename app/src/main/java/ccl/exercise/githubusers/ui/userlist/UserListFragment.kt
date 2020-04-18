@@ -53,7 +53,7 @@ class UserListFragment : Fragment() {
             error.observe(viewLifecycleOwner, Observer {
                 Toast.makeText(
                     context,
-                    getString(R.string.something_went_wrong),
+                    getString(if (it is UnsupportedOperationException) R.string.reached_limit else R.string.something_went_wrong),
                     Toast.LENGTH_SHORT
                 ).show()
                 userListAdapter?.updateLoadingStatus(false)
