@@ -1,7 +1,8 @@
-package ccl.exercise.githubusers.service
+package ccl.exercise.githubusers.service.service
 
 import ccl.exercise.githubusers.KoinModules
 import ccl.exercise.githubusers.model.User
+import ccl.exercise.githubusers.service.GithubService
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Ignore
