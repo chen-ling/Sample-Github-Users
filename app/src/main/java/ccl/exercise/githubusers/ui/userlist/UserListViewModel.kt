@@ -40,6 +40,11 @@ class UserListViewModel : ViewModel(), KoinComponent {
     var job: Job? = null
 
     fun fetchUsers() {
+        if(userList.isNotEmpty()) return
+        loadMore()
+    }
+
+    fun loadMore() {
         job = CoroutineScope(IO).launch {
             _isLoading.postValue(true)
             try {

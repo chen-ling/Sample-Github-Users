@@ -65,7 +65,7 @@ class UserListViewModelTest : KoinTest {
             coVerify(exactly = 1) { service.getUsersAsync(eq(GithubApi.PAGE_SIZE), any()) }
             assertEquals(mockUser, viewModel.usersLiveData.value?.get(0))
 
-            viewModel.fetchUsers()
+            viewModel.loadMore()
             viewModel.job?.join()
             coVerify(exactly = 1) { service.getUsersAsync(eq(GithubApi.PAGE_SIZE), eq(1)) }
             assertEquals(mockUser2, viewModel.usersLiveData.value?.get(1))
@@ -90,7 +90,7 @@ class UserListViewModelTest : KoinTest {
             viewModel.job?.join()
             coVerify(exactly = 1) { service.getUsersAsync(eq(GithubApi.PAGE_SIZE), any()) }
 
-            viewModel.fetchUsers()
+            viewModel.loadMore()
             viewModel.job?.join()
             coVerify(exactly = 0) { service.getUsersAsync(eq(GithubApi.PAGE_SIZE), eq(1)) }
             assertFalse(viewModel.isLoading.value ?: true)

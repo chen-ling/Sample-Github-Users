@@ -15,10 +15,10 @@ import ccl.exercise.githubusers.ui.ItemSpacingDecoration
 import ccl.exercise.githubusers.ui.userdetail.UserDetailFragment.Companion.STRING_NAME
 import ccl.exercise.githubusers.ui.userlist.UserListViewModel.Companion.LOAD_MORE_THRESHOLD
 import kotlinx.android.synthetic.main.fragment_user_list.*
-import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class UserListFragment : Fragment() {
-    private val viewModel: UserListViewModel by inject()
+    private val viewModel by viewModel<UserListViewModel>()
     private var userListAdapter: UserListAdapter? = null
     private val eventDelegate = object : UserEventDelegate {
         override fun onClickUser(name: String) {
@@ -81,7 +81,7 @@ class UserListFragment : Fragment() {
                     val itemNotViewed =
                         linearLayoutManager.itemCount - linearLayoutManager.findLastVisibleItemPosition()
                     if (itemNotViewed <= LOAD_MORE_THRESHOLD) {
-                        viewModel.fetchUsers()
+                        viewModel.loadMore()
                     }
                 }
             }

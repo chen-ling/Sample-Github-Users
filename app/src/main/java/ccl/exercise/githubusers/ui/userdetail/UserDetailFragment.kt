@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import ccl.exercise.githubusers.R
 import ccl.exercise.githubusers.databinding.FragmentUserDetailBinding
 import kotlinx.android.synthetic.main.fragment_user_detail.*
-import org.koin.android.ext.android.get
+import org.koin.android.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 
 class UserDetailFragment : Fragment() {
@@ -78,7 +78,7 @@ class UserDetailFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        viewModel = get(parameters = { parametersOf(name) })
+        viewModel = getViewModel(parameters = { parametersOf(name) })
         with(viewModel) {
             error.observe(viewLifecycleOwner, Observer {
                 Toast.makeText(context, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
