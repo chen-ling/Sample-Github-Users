@@ -1,6 +1,7 @@
 package ccl.exercise.githubusers.ui.userdetail
 
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,7 +25,8 @@ class UserDetailViewModel(val name: String) : ViewModel(), KoinComponent {
     val isLoading = MutableLiveData(true)
     val user = MutableLiveData<User>()
 
-    private var job: Job? = null
+    @VisibleForTesting
+    var job: Job? = null
 
     fun fetchUserProfile() {
         val currentUser = user.value
