@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ccl.exercise.githubusers.R
+import ccl.exercise.githubusers.image.GlideApp
 import ccl.exercise.githubusers.ui.ItemSpacingDecoration
 import ccl.exercise.githubusers.ui.userdetail.UserDetailFragment.Companion.STRING_NAME
 import ccl.exercise.githubusers.ui.userlist.UserListViewModel.Companion.LOAD_MORE_THRESHOLD
@@ -82,6 +83,14 @@ class UserListFragment : Fragment() {
                         linearLayoutManager.itemCount - linearLayoutManager.findLastVisibleItemPosition()
                     if (itemNotViewed <= LOAD_MORE_THRESHOLD) {
                         viewModel.loadMore()
+                    }
+                }
+
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    when (newState) {
+                        RecyclerView.SCROLL_STATE_IDLE -> GlideApp.with(context).resumeRequests()
+                        RecyclerView.SCROLL_STATE_DRAGGING -> {}
+                        RecyclerView.SCROLL_STATE_SETTLING -> GlideApp.with(context).pauseRequests()
                     }
                 }
             }
